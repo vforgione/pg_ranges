@@ -6,23 +6,66 @@ defmodule PgRanges.MixProject do
       app: :pg_ranges,
       version: "0.1.0",
       elixir: "~> 1.7",
+      elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
+      aliases: aliases(),
+      deps: deps(),
+
+      # docs
+      name: "PgRanges",
+      source_url: "https://github.com/vforgione/pg_ranges",
+      docs: [
+        main: "PgRanges"
+      ],
+      package: package()
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
   def application do
-    [
-      extra_applications: [:logger]
-    ]
+    if Mix.env() == :test do
+      [
+        mod: {PgRanges.Application, []},
+        extra_applications: [:logger]
+      ]
+    else
+      [
+        extra_applications: [:logger]
+      ]
+    end
   end
 
-  # Run "mix help deps" to learn about dependencies.
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
+
   defp deps do
     [
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
+      {:postgrex, ">= 0.0.0"},
+      {:ecto_sql, ">= 3.0.0"},
+      {:timex, "~> 3.4"},
+
+      # dev/test deps
+      {:phoenix_html, "~> 2.13", only: [:dev, :test]},
+      {:jason, "~> 1.1", only: [:dev, :test]},
+      {:poison, "~> 3.0", only: [:dev, :test]},
+      {:excoveralls, "~> 0.10.4", only: [:test]},
+      {:ex_doc, "~> 0.19", only: :dev, runtime: false}
     ]
   end
+
+  defp aliases do
+    [
+      test: ["ecto.create --quiet", "test"]
+    ]
+  end
+
+  defp package, do: [
+    files: ["lib", "mix.exs", "COPYING", "LICENSE"],
+    maintainers: ["Vince Forgione"],
+    licenses: ["MIT"],
+    links: %{
+      GitHub: "https://github.com/vforgione/pg_ranges"
+    }
+  ]
 end

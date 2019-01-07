@@ -22,3 +22,6 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 pg_ranges-*.tar
 
+# other stuff
+/.elixir_ls/
+/.vscode/
