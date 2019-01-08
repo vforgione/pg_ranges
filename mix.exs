@@ -15,6 +15,7 @@ defmodule PgRanges.MixProject do
 
       # docs
       name: "PgRanges",
+      description: description,
       source_url: "https://github.com/vforgione/pg_ranges",
       docs: [
         main: "PgRanges"
@@ -58,6 +59,16 @@ defmodule PgRanges.MixProject do
     [
       test: ["ecto.create --quiet", "test"]
     ]
+  end
+
+  defp description do
+    """
+    PostgreSQL range types for Ecto
+
+    PgRanges provides a simple wrapper around `Postgrex.Range` so that you can
+    create scheams with range type fields and use the native range type in
+    migrations.
+    """
   end
 
   defp package, do: [
