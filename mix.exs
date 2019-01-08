@@ -15,7 +15,7 @@ defmodule PgRanges.MixProject do
 
       # docs
       name: "PgRanges",
-      description: description,
+      description: description(),
       source_url: "https://github.com/vforgione/pg_ranges",
       docs: [
         main: "PgRanges"
