@@ -1,12 +1,20 @@
 defmodule PgRanges.NumRange do
   @moduledoc """
+  Wraps a `Postgrex.Range` and casts to a PostgreSQL `numrange` type.
   """
-
   defstruct r: nil
 
   @type t :: %__MODULE__{r: Postgrex.Range.t()}
 
-  @doc ""
+  @doc """
+  Creates a new `PgRanges.NumRange` struct. It expects the _lower_ and _upper_
+  attributes to be floats.
+
+  ## Options
+
+  - `lower_inclusive`: should the range be lower inclusive? Default is `true`
+  - `upper_inclusive`: should the range be upper inclusive? Default is `false`
+  """
   @spec new(float(), float(), keyword()) :: PgRanges.NumRange.t()
   def new(lower, upper, opts \\ []) do
     fields =
@@ -17,11 +25,11 @@ defmodule PgRanges.NumRange do
     %PgRanges.NumRange{r: struct!(Postgrex.Range, fields)}
   end
 
-  @doc ""
+  @doc false
   @spec from_postgrex(Postgrex.Range.t()) :: PgRanges.NumRange.t()
   def from_postgrex(%Postgrex.Range{} = r), do: %PgRanges.NumRange{r: r}
 
-  @doc ""
+  @doc false
   @spec to_postgrex(PgRanges.NumRange.t()) :: Postgrex.Range.t()
   def to_postgrex(%PgRanges.NumRange{r: r}), do: r
 

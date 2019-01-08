@@ -1,12 +1,20 @@
 defmodule PgRanges.Int8Range do
   @moduledoc """
+  Wraps a `Postgrex.Range` and casts to a PostgreSQL `int8range` type.
   """
-
   defstruct r: nil
 
   @type t :: %__MODULE__{r: Postgrex.Range.t()}
 
-  @doc ""
+  @doc """
+  Creates a new `PgRanges.Int8Range` struct. It expects the _lower_ and _upper_
+  attributes to be integerss.
+
+  ## Options
+
+  - `lower_inclusive`: should the range be lower inclusive? Default is `true`
+  - `upper_inclusive`: should the range be upper inclusive? Default is `false`
+  """
   @spec new(integer(), integer(), keyword()) :: PgRanges.Int8Range.t()
   def new(lower, upper, opts \\ []) do
     fields =
@@ -17,11 +25,11 @@ defmodule PgRanges.Int8Range do
     %PgRanges.Int8Range{r: struct!(Postgrex.Range, fields)}
   end
 
-  @doc ""
+  @doc false
   @spec from_postgrex(Postgrex.Range.t()) :: PgRanges.Int8Range.t()
   def from_postgrex(%Postgrex.Range{} = r), do: %PgRanges.Int8Range{r: r}
 
-  @doc ""
+  @doc false
   @spec to_postgrex(PgRanges.Int8Range.t()) :: Postgrex.Range.t()
   def to_postgrex(%PgRanges.Int8Range{r: r}), do: r
 

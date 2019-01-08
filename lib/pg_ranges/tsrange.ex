@@ -1,12 +1,20 @@
 defmodule PgRanges.TsRange do
   @moduledoc """
+  Wraps a `Postgrex.Range` and casts to a PostgreSQL `tsrange` type.
   """
-
   defstruct r: nil
 
   @type t :: %__MODULE__{r: Postgrex.Range.t()}
 
-  @doc ""
+  @doc """
+  Creates a new `PgRanges.TsRange` struct. It expects the _lower_ and _upper_
+  attributes to be `NaiveDateTime`s.
+
+  ## Options
+
+  - `lower_inclusive`: should the range be lower inclusive? Default is `true`
+  - `upper_inclusive`: should the range be upper inclusive? Default is `false`
+  """
   @spec new(NaiveDateTime.t(), NaiveDateTime.t(), keyword()) :: PgRanges.TsRange.t()
   def new(lower, upper, opts \\ []) do
     fields =
@@ -17,11 +25,11 @@ defmodule PgRanges.TsRange do
     %PgRanges.TsRange{r: struct!(Postgrex.Range, fields)}
   end
 
-  @doc ""
+  @doc false
   @spec from_postgrex(Postgrex.Range.t()) :: PgRanges.TsRange.t()
   def from_postgrex(%Postgrex.Range{} = r), do: %PgRanges.TsRange{r: r}
 
-  @doc ""
+  @doc false
   @spec to_postgrex(PgRanges.TsRange.t()) :: Postgrex.Range.t()
   def to_postgrex(%PgRanges.TsRange{r: r}), do: r
 
