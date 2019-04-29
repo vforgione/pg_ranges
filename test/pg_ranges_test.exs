@@ -19,8 +19,8 @@ defmodule PgRanges.PgRangesTest do
     ts_range = TsRange.new(~N[2018-04-21 15:00:00], ~N[2018-04-22 01:00:00])
     tstz_range =
       TstzRange.new(
-        Timex.to_datetime(~N[2018-04-21 15:00:00], "America/Chicago"),
-        Timex.to_datetime(~N[2018-04-22 01:00:00], "America/Chicago")
+        DateTime.from_naive!(~N[2018-04-21 15:00:00], "America/Chicago"),
+        DateTime.from_naive!(~N[2018-04-22 01:00:00], "America/Chicago")
       )
     int4_range = Int4Range.new(0, 10)
     int8_range = Int8Range.new(0, 1000000000)

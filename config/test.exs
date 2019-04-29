@@ -1,5 +1,7 @@
 use Mix.Config
 
+config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
+
 config :pg_ranges, PgRanges.Repo,
   username: "pgranges",
   password: "pgranges",

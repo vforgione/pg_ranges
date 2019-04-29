@@ -19,8 +19,9 @@ defmodule PgRanges.TstzRange do
   """
   @spec new(DateTime.t(), DateTime.t(), keyword()) :: PgRanges.TstzRange.t()
   def new(lower, upper, opts \\ []) do
-    lower = Timex.to_datetime(lower, "Etc/UTC")
-    upper = Timex.to_datetime(upper, "Etc/UTC")
+    time_zone_database = Keyword.get(opts, :time_zone_database, Calendar.get_time_zone_database())
+    {:ok, lower} = DateTime.shift_zone(lower, "Etc/UTC", time_zone_database)
+    {:ok, upper} = DateTime.shift_zone(upper, "Etc/UTC", time_zone_database)
 
     fields =
       [lower_inclusive: true, upper_inclusive: false]
