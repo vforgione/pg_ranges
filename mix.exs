@@ -66,7 +66,7 @@ defmodule PgRanges.MixProject do
     PostgreSQL range types for Ecto
 
     PgRanges provides a simple wrapper around `Postgrex.Range` so that you can
-    create scheams with range type fields and use the native range type in
+    create schemas with range type fields and use the native range type in
     migrations.
     """
   end
