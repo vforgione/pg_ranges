@@ -5,11 +5,16 @@ defmodule PgRanges.MixProject do
     [
       app: :pg_ranges,
       version: "0.1.0",
-      elixir: "~> 1.7",
+      elixir: ">= 1.10.3",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ],
       aliases: aliases(),
       deps: deps(),
 
@@ -43,7 +48,7 @@ defmodule PgRanges.MixProject do
   defp deps do
     [
       {:postgrex, ">= 0.0.0"},
-      {:ecto_sql, ">= 3.0.0"},
+      {:ecto_sql, ">= 3.3.0"},
 
       # dev/test deps
       {:tzdata, "~> 1.0", only: [:dev, :test]},
@@ -66,17 +71,18 @@ defmodule PgRanges.MixProject do
     PostgreSQL range types for Ecto
 
     PgRanges provides a simple wrapper around `Postgrex.Range` so that you can
-    create scheams with range type fields and use the native range type in
+    create schemas with range type fields and use the native range type in
     migrations.
     """
   end
 
-  defp package, do: [
-    files: ["lib", "mix.exs", "COPYING", "LICENSE"],
-    maintainers: ["Vince Forgione"],
-    licenses: ["MIT"],
-    links: %{
-      GitHub: "https://github.com/vforgione/pg_ranges"
-    }
-  ]
+  defp package,
+    do: [
+      files: ["lib", "mix.exs", "COPYING", "LICENSE"],
+      maintainers: ["Vince Forgione"],
+      licenses: ["MIT"],
+      links: %{
+        GitHub: "https://github.com/vforgione/pg_ranges"
+      }
+    ]
 end
