@@ -10,11 +10,11 @@ defmodule PgRanges.BaseCase do
       Ecto.Adapters.SQL.Sandbox.mode(PgRanges.Repo, {:shared, self()})
     end
 
-    Ecto.Adapters.SQL.query! Repo, """
+    Ecto.Adapters.SQL.query!(Repo, """
     DROP TABLE IF EXISTS models ;
-    """
+    """)
 
-    Ecto.Adapters.SQL.query! Repo, """
+    Ecto.Adapters.SQL.query!(Repo, """
     CREATE TABLE models (
       id    SERIAL    PRIMARY KEY,
       date  daterange DEFAULT NULL,
@@ -24,7 +24,7 @@ defmodule PgRanges.BaseCase do
       int8  int8range DEFAULT NULL,
       num   numrange  DEFAULT NULL
     ) ;
-    """
+    """)
 
     :ok
   end
