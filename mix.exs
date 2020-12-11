@@ -44,9 +44,9 @@ defmodule PgRanges.MixProject do
     [
       {:postgrex, ">= 0.0.0"},
       {:ecto_sql, ">= 3.0.0"},
-      {:timex, "~> 3.4"},
 
       # dev/test deps
+      {:tzdata, "~> 1.0", only: [:dev, :test]},
       {:phoenix_html, "~> 2.13", only: [:dev, :test]},
       {:jason, "~> 1.1", only: [:dev, :test]},
       {:poison, "~> 3.0", only: [:dev, :test]},
