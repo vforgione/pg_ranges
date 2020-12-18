@@ -4,7 +4,7 @@ defmodule PgRanges.MixProject do
   def project do
     [
       app: :pg_ranges,
-      version: "0.1.0",
+      version: "1.1.0",
       elixir: ">= 1.10.3",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
@@ -49,6 +49,7 @@ defmodule PgRanges.MixProject do
     [
       {:postgrex, ">= 0.0.0"},
       {:ecto_sql, ">= 3.3.0"},
+      {:decimal, "~> 1.0"},
 
       # dev/test deps
       {:tzdata, "~> 1.0", only: [:dev, :test]},
