@@ -9,7 +9,12 @@ defmodule PgRanges.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ],
       aliases: aliases(),
       deps: deps(),
 
@@ -27,7 +32,7 @@ defmodule PgRanges.MixProject do
   def application do
     if Mix.env() == :test do
       [
-        mod: {PgRanges.Application, []},
+        mod: [],
         extra_applications: [:logger]
       ]
     else
@@ -42,11 +47,9 @@ defmodule PgRanges.MixProject do
 
   defp deps do
     [
-      {:postgrex, ">= 0.0.0"},
-      {:ecto_sql, ">= 3.0.0"},
-      {:timex, "~> 3.4"},
-
-      # dev/test deps
+      {:postgrex, "~> 0.15.7"},
+      {:ecto_sql, "~> 3.5"},
+      {:tzdata, "~> 1.1"},
       {:phoenix_html, "~> 2.13", only: [:dev, :test]},
       {:jason, "~> 1.1", only: [:dev, :test]},
       {:poison, "~> 3.0", only: [:dev, :test]},
@@ -71,12 +74,13 @@ defmodule PgRanges.MixProject do
     """
   end
 
-  defp package, do: [
-    files: ["lib", "mix.exs", "COPYING", "LICENSE"],
-    maintainers: ["Vince Forgione"],
-    licenses: ["MIT"],
-    links: %{
-      GitHub: "https://github.com/vforgione/pg_ranges"
-    }
-  ]
+  defp package,
+    do: [
+      files: ["lib", "mix.exs", "COPYING", "LICENSE"],
+      maintainers: ["Vince Forgione"],
+      licenses: ["MIT"],
+      links: %{
+        GitHub: "https://github.com/vforgione/pg_ranges"
+      }
+    ]
 end

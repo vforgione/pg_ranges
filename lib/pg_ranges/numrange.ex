@@ -1,4 +1,6 @@
 defmodule PgRanges.NumRange do
+  use Ecto.Type
+
   @moduledoc """
   Wraps a `Postgrex.Range` and casts to a PostgreSQL `numrange` type.
   """
@@ -20,7 +22,7 @@ defmodule PgRanges.NumRange do
     fields =
       [lower_inclusive: true, upper_inclusive: false]
       |> Keyword.merge(opts)
-      |> Keyword.merge([lower: lower, upper: upper])
+      |> Keyword.merge(lower: lower, upper: upper)
 
     %PgRanges.NumRange{r: struct!(Postgrex.Range, fields)}
   end
@@ -32,9 +34,6 @@ defmodule PgRanges.NumRange do
   @doc false
   @spec to_postgrex(PgRanges.NumRange.t()) :: Postgrex.Range.t()
   def to_postgrex(%PgRanges.NumRange{r: r}), do: r
-
-  @behaviour Ecto.Type
-
   @doc false
   def type, do: :numrange
 

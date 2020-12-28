@@ -1,20 +1,20 @@
 defmodule PgRanges.BaseCase do
   use ExUnit.CaseTemplate
 
-  alias PgRanges.Repo
+  alias PgRanges.TestRepo
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(PgRanges.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(PgRanges.TestRepo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(PgRanges.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(PgRanges.TestRepo, {:shared, self()})
     end
 
-    Ecto.Adapters.SQL.query! Repo, """
+    Ecto.Adapters.SQL.query!(TestRepo, """
     DROP TABLE IF EXISTS models ;
-    """
+    """)
 
-    Ecto.Adapters.SQL.query! Repo, """
+    Ecto.Adapters.SQL.query!(TestRepo, """
     CREATE TABLE models (
       id    SERIAL    PRIMARY KEY,
       date  daterange DEFAULT NULL,
@@ -24,7 +24,7 @@ defmodule PgRanges.BaseCase do
       int8  int8range DEFAULT NULL,
       num   numrange  DEFAULT NULL
     ) ;
-    """
+    """)
 
     :ok
   end

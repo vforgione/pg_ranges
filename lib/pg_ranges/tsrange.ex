@@ -1,4 +1,6 @@
 defmodule PgRanges.TsRange do
+  use Ecto.Type
+
   @moduledoc """
   Wraps a `Postgrex.Range` and casts to a PostgreSQL `tsrange` type.
   """
@@ -20,7 +22,7 @@ defmodule PgRanges.TsRange do
     fields =
       [lower_inclusive: true, upper_inclusive: false]
       |> Keyword.merge(opts)
-      |> Keyword.merge([lower: lower, upper: upper])
+      |> Keyword.merge(lower: lower, upper: upper)
 
     %PgRanges.TsRange{r: struct!(Postgrex.Range, fields)}
   end
@@ -32,8 +34,6 @@ defmodule PgRanges.TsRange do
   @doc false
   @spec to_postgrex(PgRanges.TsRange.t()) :: Postgrex.Range.t()
   def to_postgrex(%PgRanges.TsRange{r: r}), do: r
-
-  @behaviour Ecto.Type
 
   @doc false
   def type, do: :tsrange

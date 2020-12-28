@@ -25,3 +25,6 @@ pg_ranges-*.tar
 # other stuff
 /.elixir_ls/
 /.vscode/
+
+/env/*
+!/env/example.env

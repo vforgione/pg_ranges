@@ -1,4 +1,6 @@
 defmodule PgRanges.TstzRange do
+  use Ecto.Type
+
   @moduledoc """
   Wraps a `Postgrex.Range` and casts to a PostgreSQL `tstzrange` type.
   """
@@ -19,13 +21,13 @@ defmodule PgRanges.TstzRange do
   """
   @spec new(DateTime.t(), DateTime.t(), keyword()) :: PgRanges.TstzRange.t()
   def new(lower, upper, opts \\ []) do
-    lower = Timex.to_datetime(lower, "Etc/UTC")
-    upper = Timex.to_datetime(upper, "Etc/UTC")
+    {:ok, lower} = DateTime.shift_zone(lower, "Etc/UTC")
+    {:ok, upper} = DateTime.shift_zone(upper, "Etc/UTC")
 
     fields =
       [lower_inclusive: true, upper_inclusive: false]
       |> Keyword.merge(opts)
-      |> Keyword.merge([lower: lower, upper: upper])
+      |> Keyword.merge(lower: lower, upper: upper)
 
     %PgRanges.TstzRange{r: struct!(Postgrex.Range, fields)}
   end
@@ -37,8 +39,6 @@ defmodule PgRanges.TstzRange do
   @doc false
   @spec to_postgrex(PgRanges.TstzRange.t()) :: Postgrex.Range.t()
   def to_postgrex(%PgRanges.TstzRange{r: r}), do: r
-
-  @behaviour Ecto.Type
 
   @doc false
   def type, do: :tstzrange

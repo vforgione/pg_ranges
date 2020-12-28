@@ -1,4 +1,6 @@
 defmodule PgRanges.Int8Range do
+  use Ecto.Type
+
   @moduledoc """
   Wraps a `Postgrex.Range` and casts to a PostgreSQL `int8range` type.
   """
@@ -20,7 +22,7 @@ defmodule PgRanges.Int8Range do
     fields =
       [lower_inclusive: true, upper_inclusive: false]
       |> Keyword.merge(opts)
-      |> Keyword.merge([lower: lower, upper: upper])
+      |> Keyword.merge(lower: lower, upper: upper)
 
     %PgRanges.Int8Range{r: struct!(Postgrex.Range, fields)}
   end
@@ -32,8 +34,6 @@ defmodule PgRanges.Int8Range do
   @doc false
   @spec to_postgrex(PgRanges.Int8Range.t()) :: Postgrex.Range.t()
   def to_postgrex(%PgRanges.Int8Range{r: r}), do: r
-
-  @behaviour Ecto.Type
 
   @doc false
   def type, do: :int8range

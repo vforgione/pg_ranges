@@ -1,4 +1,6 @@
 defmodule PgRanges.DateRange do
+  use Ecto.Type
+
   @moduledoc """
   Wraps a `Postgrex.Range` and casts to a PostgreSQL `daterange` type.
   """
@@ -21,7 +23,7 @@ defmodule PgRanges.DateRange do
     fields =
       [lower_inclusive: true, upper_inclusive: false]
       |> Keyword.merge(opts)
-      |> Keyword.merge([lower: lower, upper: upper])
+      |> Keyword.merge(lower: lower, upper: upper)
 
     %PgRanges.DateRange{r: struct!(Postgrex.Range, fields)}
   end
@@ -33,8 +35,6 @@ defmodule PgRanges.DateRange do
   @doc false
   @spec to_postgrex(PgRanges.DateRange.t()) :: Postgrex.Range.t()
   def to_postgrex(%PgRanges.DateRange{r: r}), do: r
-
-  @behaviour Ecto.Type
 
   @doc false
   def type, do: :daterange
