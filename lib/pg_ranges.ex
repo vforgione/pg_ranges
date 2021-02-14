@@ -63,10 +63,9 @@ defmodule PgRanges do
                 upper: nil,
                 upper_inclusive: false
 
-      @spec new(DateTime.t(), DateTime.t(), keyword()) :: __MODULE__.t()
+      @spec new(any, any, keyword()) :: __MODULE__.t()
       def new(lower, upper, opts \\ []) do
         fields = Keyword.merge(opts, lower: lower, upper: upper)
-
         struct!(__MODULE__, fields)
       end
 
@@ -101,6 +100,7 @@ defmodule PgRanges do
     end
   end
 
+  @doc false
   defmacro __before_compile__(env) do
     unless Module.defines?(env.module, {:type, 0}) do
       message = """

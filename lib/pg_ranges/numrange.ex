@@ -12,6 +12,7 @@ defmodule PgRanges.NumRange do
         }
 
   @doc false
+  @impl true
   def type, do: :numrange
 
   @doc false
@@ -35,7 +36,12 @@ defmodule PgRanges.NumRange do
         } = range
       ) do
     fields =
-      range |> Map.from_struct() |> Map.merge(lower: to_decimal(lower), upper: to_decimal(upper))
+      range
+      |> Map.from_struct()
+      |> Map.merge(%{
+        lower: to_decimal(lower),
+        upper: to_decimal(upper)
+      })
 
     struct!(__MODULE__, fields)
   end
@@ -58,7 +64,12 @@ defmodule PgRanges.NumRange do
         } = range
       ) do
     fields =
-      range |> Map.from_struct() |> Map.merge(lower: to_decimal(lower), upper: to_decimal(upper))
+      range
+      |> Map.from_struct()
+      |> Map.merge(%{
+        lower: to_decimal(lower),
+        upper: to_decimal(upper)
+      })
 
     struct!(Range, fields)
   end
@@ -66,16 +77,17 @@ defmodule PgRanges.NumRange do
   @doc """
   Creates a new `#{__MODULE__}` struct. It expects the _lower_ and _upper_
   attributes to be acceptable by `Decimal.new/1`.
+
   This will convert tany acceptable input to Decimal.
+
   ## Options
   - `lower_inclusive`: should the range be lower inclusive? Default is `true`
   - `upper_inclusive`: should the range be upper inclusive? Default is `false`
   """
-  @spec new(DateTime.t(), DateTime.t(), keyword()) :: __MODULE__.t()
+  @spec new(any, any, keyword()) :: __MODULE__.t()
   @impl true
   def new(lower, upper, opts \\ []) do
     fields = Keyword.merge(opts, lower: to_decimal(lower), upper: to_decimal(upper))
-
     struct!(__MODULE__, fields)
   end
 

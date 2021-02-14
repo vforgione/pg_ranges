@@ -17,7 +17,9 @@ defmodule PgRanges.TstzRange do
   @doc """
   Creates a new `#{__MODULE__}` struct. It expects the _lower_ and _upper_
   attributes to be `DateTime`s.
+
   This will convert the date time structs to UTC time.
+
   ## Options
   - `lower_inclusive`: should the range be lower inclusive? Default is `true`
   - `upper_inclusive`: should the range be upper inclusive? Default is `false`
