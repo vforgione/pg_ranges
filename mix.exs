@@ -48,16 +48,15 @@ defmodule PgRanges.MixProject do
   defp deps do
     [
       {:postgrex, ">= 0.0.0"},
-      {:ecto_sql, ">= 3.3.0"},
-      {:decimal, "~> 1.0"},
+      {:ecto_sql, ">= 3.5.0"},
+      {:decimal, "~> 2.0"},
 
       # dev/test deps
-      {:tzdata, "~> 1.0", only: [:dev, :test]},
-      {:phoenix_html, "~> 2.13", only: [:dev, :test]},
-      {:jason, "~> 1.1", only: [:dev, :test]},
-      {:poison, "~> 3.0", only: [:dev, :test]},
-      {:excoveralls, "~> 0.10.4", only: [:test]},
-      {:ex_doc, "~> 0.19", only: :dev, runtime: false}
+      {:tzdata, "~> 1.1", only: [:dev, :test]},
+      {:phoenix_html, "~> 2.14", only: [:dev, :test]},
+      {:jason, "~> 1.2", only: [:dev, :test]},
+      {:excoveralls, "~> 0.14", only: [:test]},
+      {:ex_doc, "~> 0.24", only: :dev, runtime: false}
     ]
   end
 

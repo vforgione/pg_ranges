@@ -12,6 +12,7 @@ defmodule PgRanges.NumRange do
         }
 
   @doc false
+  @impl true
   def type, do: :numrange
 
   @doc false
