@@ -56,3 +56,13 @@ def deps do
   ]
 end
 ```
+
+## Development
+
+For local development, set up your test database with:
+
+    MIX_ENV=test mix ecto.create -r PgRanges.Repo
+
+The run tests with
+
+    mix test
