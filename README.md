@@ -52,7 +52,7 @@ in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:pg_ranges, "~> 0.1.0"}
+    {:pg_ranges, "~> 1.1.0"}
   ]
 end
 ```
