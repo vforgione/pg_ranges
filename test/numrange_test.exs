@@ -30,6 +30,7 @@ defmodule PgRanges.NumRangesTest do
 
     Enum.each(ranges, fn range ->
       assert %{upper: %Decimal{}, lower: %Decimal{}} = range
+
       assert [%{id: ^model_id, num: ^original_range}] =
                Repo.all(
                  from(m in Model, where: fragment("? @> ?", m.num, type(^range, NumRange)))
