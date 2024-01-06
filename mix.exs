@@ -5,7 +5,7 @@ defmodule PgRanges.MixProject do
     [
       app: :pg_ranges,
       version: "1.1.0",
-      elixir: ">= 1.10.3",
+      elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls],
