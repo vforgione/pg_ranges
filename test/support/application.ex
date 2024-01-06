@@ -4,10 +4,11 @@ defmodule PgRanges.Application do
   use Application
 
   def start(_type, _args) do
-    import Supervisor.Spec
-
     children = [
-      supervisor(PgRanges.Repo, [])
+      %{
+        id: PgRanges.Repo,
+        start: {PgRanges.Repo, :start_link, []}
+      }
     ]
 
     opts = [strategy: :one_for_one, name: PgRanges.Supervisor]
