@@ -12,5 +12,6 @@ defmodule PgRanges.Int4Range do
         }
 
   @doc false
+  @spec type() :: :int4range
   def type, do: :int4range
 end

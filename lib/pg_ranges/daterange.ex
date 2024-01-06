@@ -12,5 +12,6 @@ defmodule PgRanges.DateRange do
         }
 
   @doc false
+  @spec type() :: :daterange
   def type, do: :daterange
 end

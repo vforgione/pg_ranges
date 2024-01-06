@@ -12,5 +12,6 @@ defmodule PgRanges.TsRange do
         }
 
   @doc false
+  @spec type() :: :tsrange
   def type, do: :tsrange
 end

@@ -12,6 +12,7 @@ defmodule PgRanges.TstzRange do
         }
 
   @impl true
+  @spec type() :: :tstzrange
   def type, do: :tstzrange
 
   @doc """
