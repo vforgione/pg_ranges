@@ -5,3 +5,4 @@ Original Author:
 
 Major Code Contributors:
 - @rparcus
+- @jcomellas

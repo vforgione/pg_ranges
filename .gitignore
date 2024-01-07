@@ -23,5 +23,6 @@ erl_crash.dump
 pg_ranges-*.tar
 
 # other stuff
-/.elixir_ls/
-/.vscode/
+.devcontainer
+.elixir_ls
+.vscode

@@ -1,6 +1,6 @@
 # ChangeLog
 
-## v1.x.x
+## v1.1.1
 
 - Updated configuration to use the `Config` module (@jcomellas)
 - Modified test supervisor child spec to use current scheme (@jcomellas)
