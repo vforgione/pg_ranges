@@ -13,6 +13,7 @@ defmodule PgRanges.NumRange do
 
   @doc false
   @impl true
+  @spec type() :: :numrange
   def type, do: :numrange
 
   @doc false
@@ -78,7 +79,7 @@ defmodule PgRanges.NumRange do
   Creates a new `#{__MODULE__}` struct. It expects the _lower_ and _upper_
   attributes to be acceptable by `Decimal.new/1`.
 
-  This will convert tany acceptable input to Decimal.
+  This will convert any acceptable input to Decimal.
 
   ## Options
   - `lower_inclusive`: should the range be lower inclusive? Default is `true`

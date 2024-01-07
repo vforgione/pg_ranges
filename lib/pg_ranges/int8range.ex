@@ -12,5 +12,6 @@ defmodule PgRanges.Int8Range do
         }
 
   @doc false
+  @spec type() :: :int8range
   def type, do: :int8range
 end

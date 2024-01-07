@@ -5,7 +5,7 @@ defmodule PgRanges.MixProject do
     [
       app: :pg_ranges,
       version: "1.1.0",
-      elixir: ">= 1.10.3",
+      elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls],
@@ -48,16 +48,16 @@ defmodule PgRanges.MixProject do
   defp deps do
     [
       {:postgrex, ">= 0.0.0"},
-      {:ecto_sql, ">= 3.3.0"},
-      {:decimal, "~> 1.0"},
+      {:ecto_sql, "~> 3.11"},
+      {:decimal, "~> 2.1"},
 
       # dev/test deps
-      {:tzdata, "~> 1.0", only: [:dev, :test]},
-      {:phoenix_html, "~> 2.13", only: [:dev, :test]},
-      {:jason, "~> 1.1", only: [:dev, :test]},
-      {:poison, "~> 3.0", only: [:dev, :test]},
-      {:excoveralls, "~> 0.10.4", only: [:test]},
-      {:ex_doc, "~> 0.19", only: :dev, runtime: false}
+      {:tzdata, "~> 1.1", only: [:dev, :test]},
+      {:phoenix_html, "~> 4.0", only: [:dev, :test]},
+      {:jason, "~> 1.4", only: [:dev, :test]},
+      {:poison, "~> 5.0", only: [:dev, :test]},
+      {:excoveralls, "~> 0.18.0", only: [:test]},
+      {:ex_doc, "~> 0.31", only: :dev, runtime: false}
     ]
   end
 

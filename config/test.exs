@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
 
@@ -12,4 +12,4 @@ config :pg_ranges, PgRanges.Repo,
 
 config :pg_ranges, ecto_repos: [PgRanges.Repo]
 
-config :logger, level: :warn
+config :logger, level: :warning
