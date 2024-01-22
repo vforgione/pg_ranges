@@ -1,9 +1,9 @@
 # PgRanges
 
-PostgreSQL range types for Ecto.
+PostgreSQL range and multirange types for Ecto.
 
-PgRanges provides a simple wrapper around `Postgrex.Range` so that you can
-create schemas with range type fields and use the native range type in
+PgRanges provides a simple wrapper around `Postgrex.Range` and `Postrex.Multirange`
+so that you can create schemas with range type fields and use the native range type in
 migrations.
 
 ```elixir
@@ -14,6 +14,7 @@ defmodule MyApp.Employee do
   schema "employees" do
     field :name, :string
     field :employed_dates, DateRange
+    field :scheduled_meetings, DateMultiRange
   end
 end
 
@@ -24,6 +25,7 @@ defmodule MyApp.Repo.Migrations.CreateEmployees do
     create table(:employees) do
       add :name, :string
       add :employed_dates, :daterange
+      add :scheduled_meetings, :datemultirange
     end
   end
 end
