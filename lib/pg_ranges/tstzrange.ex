@@ -5,9 +5,9 @@ defmodule PgRanges.TstzRange do
   use PgRanges
 
   @type t :: %__MODULE__{
-          lower: DateTime.t(),
+          lower: DateTime.t() | :unbound | :empty,
           lower_inclusive: boolean(),
-          upper: DateTime.t(),
+          upper: DateTime.t() | :unbound | :empty,
           upper_inclusive: boolean()
         }
 
@@ -29,11 +29,21 @@ defmodule PgRanges.TstzRange do
   @impl true
   def new(lower, upper, opts \\ []) do
     time_zone_database = Keyword.get(opts, :time_zone_database, Calendar.get_time_zone_database())
-    {:ok, lower} = DateTime.shift_zone(lower, "Etc/UTC", time_zone_database)
-    {:ok, upper} = DateTime.shift_zone(upper, "Etc/UTC", time_zone_database)
+
+    lower = shift_to_utc(lower, time_zone_database)
+    upper = shift_to_utc(upper, time_zone_database)
 
     fields = Keyword.merge(opts, lower: lower, upper: upper)
 
     struct!(__MODULE__, fields)
+  end
+
+  defp shift_to_utc(date_time, time_zone_database)
+  defp shift_to_utc(:unbound, _time_zone_database), do: :unbound
+  defp shift_to_utc(:empty, _time_zone_database), do: :empty
+
+  defp shift_to_utc(date_time, time_zone_database) do
+    {:ok, date_time} = DateTime.shift_zone(date_time, "UTC", time_zone_database)
+    date_time
   end
 end

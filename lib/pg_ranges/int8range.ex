@@ -5,9 +5,9 @@ defmodule PgRanges.Int8Range do
   use PgRanges
 
   @type t :: %__MODULE__{
-          lower: integer(),
+          lower: integer() | :unbound | :empty,
           lower_inclusive: boolean(),
-          upper: integer(),
+          upper: integer() | :unbound | :empty,
           upper_inclusive: boolean()
         }
 

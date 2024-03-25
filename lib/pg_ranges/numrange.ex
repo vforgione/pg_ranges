@@ -5,9 +5,9 @@ defmodule PgRanges.NumRange do
   use PgRanges
 
   @type t :: %__MODULE__{
-          lower: float(),
+          lower: float() | :unbound | :empty,
           lower_inclusive: boolean(),
-          upper: float(),
+          upper: float() | :unbound | :empty,
           upper_inclusive: boolean()
         }
 
@@ -92,6 +92,9 @@ defmodule PgRanges.NumRange do
     struct!(__MODULE__, fields)
   end
 
+  defp to_decimal(value)
+  defp to_decimal(:unbound), do: :unbound
+  defp to_decimal(:empty), do: :empty
   defp to_decimal(value) when is_float(value), do: Decimal.from_float(value)
   defp to_decimal(value), do: Decimal.new(value)
 end
