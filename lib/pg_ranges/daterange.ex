@@ -5,9 +5,9 @@ defmodule PgRanges.DateRange do
   use PgRanges
 
   @type t :: %__MODULE__{
-          lower: Date.t(),
+          lower: Date.t() | :unbound | :empty,
           lower_inclusive: integer(),
-          upper: Date.t(),
+          upper: Date.t() | :unbound | :empty,
           upper_inclusive: integer()
         }
 

@@ -14,7 +14,7 @@ defmodule PgRanges.PgRangesTest do
     NumRange
   }
 
-  setup do
+  test "querying" do
     date_range = DateRange.new(~D[2018-04-21], ~D[2018-04-22])
     ts_range = TsRange.new(~N[2018-04-21 15:00:00], ~N[2018-04-22 01:00:00])
 
@@ -28,7 +28,7 @@ defmodule PgRanges.PgRangesTest do
     int8_range = Int8Range.new(0, 1_000_000_000)
     num_range = NumRange.new(0, 9.9, upper_inclusive: true)
 
-    {:ok, m} =
+    {:ok, _model} =
       Model.changeset(%Model{}, %{
         date: date_range,
         ts: ts_range,
@@ -39,15 +39,57 @@ defmodule PgRanges.PgRangesTest do
       })
       |> Repo.insert()
 
-    {:ok, model: m}
-  end
-
-  test "querying" do
-    range = Int4Range.new(1, 4)
+    search_range = Int4Range.new(1, 4)
 
     models =
-      Repo.all(from(m in Model, where: fragment("? @> ?", m.int4, type(^range, Int4Range))))
+      Repo.all(
+        from(m in Model, where: fragment("? @> ?", m.int4, type(^search_range, Int4Range)))
+      )
 
     assert length(models) == 1
+  end
+
+  test "can handle open ended ranges" do
+    assert {:ok, _model} =
+             Model.changeset(%Model{}, %{
+               date: DateRange.new(:unbound, :unbound),
+               ts: TsRange.new(:unbound, :unbound),
+               tstz: TstzRange.new(:unbound, :unbound),
+               int4: Int4Range.new(:unbound, :unbound),
+               int8: Int8Range.new(:unbound, :unbound),
+               num: NumRange.new(:unbound, :unbound)
+             })
+             |> Repo.insert()
+
+    assert %Model{
+             date: %DateRange{lower: :unbound, upper: :unbound},
+             ts: %TsRange{lower: :unbound, upper: :unbound},
+             tstz: %TstzRange{lower: :unbound, upper: :unbound},
+             int4: %Int4Range{lower: :unbound, upper: :unbound},
+             int8: %Int8Range{lower: :unbound, upper: :unbound},
+             num: %NumRange{lower: :unbound, upper: :unbound}
+           } = Repo.one(Model)
+  end
+
+  test "can handle empty range" do
+    assert {:ok, _model} =
+             Model.changeset(%Model{}, %{
+               date: DateRange.new(:empty, :empty),
+               ts: TsRange.new(:empty, :empty),
+               tstz: TstzRange.new(:empty, :empty),
+               int4: Int4Range.new(:empty, :empty),
+               int8: Int8Range.new(:empty, :empty),
+               num: NumRange.new(:empty, :empty)
+             })
+             |> Repo.insert()
+
+    assert %Model{
+             date: %DateRange{lower: :empty, upper: :empty},
+             ts: %TsRange{lower: :empty, upper: :empty},
+             tstz: %TstzRange{lower: :empty, upper: :empty},
+             int4: %Int4Range{lower: :empty, upper: :empty},
+             int8: %Int8Range{lower: :empty, upper: :empty},
+             num: %NumRange{lower: :empty, upper: :empty}
+           } = Repo.one(Model)
   end
 end
