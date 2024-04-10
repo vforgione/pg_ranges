@@ -22,7 +22,14 @@ defmodule PgRanges.BaseCase do
       tstz  tstzrange DEFAULT NULL,
       int4  int4range DEFAULT NULL,
       int8  int8range DEFAULT NULL,
-      num   numrange  DEFAULT NULL
+      num   numrange  DEFAULT NULL,
+
+      datemulti datemultirange DEFAULT NULL,
+      tsmulti   tsmultirange   DEFAULT NULL,
+      tstzmulti tstzmultirange DEFAULT NULL,
+      int4multi int4multirange DEFAULT NULL,
+      int8multi int8multirange DEFAULT NULL,
+      nummulti  nummultirange  DEFAULT NULL
     ) ;
     """)
 
