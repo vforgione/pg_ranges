@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=pgranges
+      - POSTGRES_PASSWORD=pgranges
+  code:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    command: sleep infinity
+    volumes:
+      - ..:/code:cached
+    depends_on:
+      - db

@@ -5,16 +5,8 @@ defmodule PgRanges.MixProject do
     [
       app: :pg_ranges,
       version: "1.1.1",
-      elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
-      test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [
-        coveralls: :test,
-        "coveralls.detail": :test,
-        "coveralls.post": :test,
-        "coveralls.html": :test
-      ],
       aliases: aliases(),
       deps: deps(),
 
@@ -53,10 +45,6 @@ defmodule PgRanges.MixProject do
 
       # dev/test deps
       {:tzdata, "~> 1.1", only: [:dev, :test]},
-      {:phoenix_html, "~> 4.0", only: [:dev, :test]},
-      {:jason, "~> 1.4", only: [:dev, :test]},
-      {:poison, "~> 5.0", only: [:dev, :test]},
-      {:excoveralls, "~> 0.18.0", only: [:test]},
       {:ex_doc, "~> 0.31", only: :dev, runtime: false}
     ]
   end

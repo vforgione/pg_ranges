@@ -1,0 +1,13 @@
+{
+  "name": "pg_ranges",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "code",
+  "workspaceFolder": "/code",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "JakeBecker.elixir-ls"
+      ]
+    }
+  }
+}
