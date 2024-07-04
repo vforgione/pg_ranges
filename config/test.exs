@@ -6,7 +6,7 @@ config :pg_ranges, PgRanges.Repo,
   username: "pgranges",
   password: "pgranges",
   database: "pgranges",
-  hostname: "localhost",
+  hostname: "db",
   pool_size: 10,
   pool: Ecto.Adapters.SQL.Sandbox
 

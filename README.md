@@ -61,57 +61,7 @@ end
 
 ## Dev Setup
 
-While trying to not be prescriptive about how to work on this package, I
-recommend using [VSCode](https://code.visualstudio.com) with the 
-[Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-and [ElixirLS](https://marketplace.visualstudio.com/items?itemName=JakeBecker.elixir-ls)
-extensions. The `.gitignore` file ignores `.devcontainer/` and `.vscode/`
-directories, so feel free to use whatever you deem necessary.
-
-<details>
-<summary>Basic Dev Container Setup</summary>
-
-**.devcontainer/Dockerfile**:
-
-```dockerfile
-FROM elixir:1.16
-WORKDIR /workspace
-```
-
-**.devcontainer/docker-compose.yaml**:
-
-```yaml
-version: '3'
-services:
-  db:
-    image: postgres
-    restart: unless-stopped
-    environment:
-    - POSTGRES_USER=pgranges
-    - POSTGRES_PASSWORD=pgranges
-  code:
-    build:
-      context: ..
-      dockerfile: .devcontainer/Dockerfile
-    command: sleep infinity
-    volumes:
-    - ..:/workspace:cached
-    depends_on:
-    - db
-```
-
-**.devcontainer/devcontainer.json**:
-
-```json
-{
-  "name": "pg_range",
-  "dockerComposeFile": "docker-compose.yaml",
-  "service": "code",
-  "workspaceFolder": "/workspace"
-}
-```
-
-</details>
+This repo contains a `.devcontainer` directory that should be sufficient to bootstrap a dev container. Follow your normal workflow to use it.
 
 ### Running the Tests
 
