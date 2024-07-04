@@ -5,11 +5,17 @@ services:
     environment:
       - POSTGRES_USER=pgranges
       - POSTGRES_PASSWORD=pgranges
+      - POSTGRES_DB=pgranges
   code:
     build:
       context: ..
       dockerfile: .devcontainer/Dockerfile
     command: sleep infinity
+    environment:
+      - POSTGRES_USERNAME=pgranges
+      - POSTGRES_PASSWORD=pgranges
+      - POSTGRES_DATABASE=pgranges
+      - POSTGRES_HOSTNAME=db
     volumes:
       - ..:/code:cached
     depends_on:

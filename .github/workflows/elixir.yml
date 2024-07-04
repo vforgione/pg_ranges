@@ -28,6 +28,7 @@ jobs:
         env:
           POSTGRES_USER: pgranges
           POSTGRES_PASSWORD: pgranges
+          POSTGRES_DB: pgranges
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -97,3 +98,8 @@ jobs:
     # Step: Execute the tests.
     - name: Run tests
       run: mix test
+      env:
+        POSTGRES_USERNAME: pgranges
+        POSTGRES_PASSWORD: pgranges
+        POSTGRES_DATABASE: pgranges
+        POSTGRES_HOSTNAME: localhost
