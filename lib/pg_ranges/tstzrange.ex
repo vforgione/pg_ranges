@@ -43,7 +43,8 @@ defmodule PgRanges.TstzRange do
   defp shift_to_utc(:empty, _time_zone_database), do: :empty
 
   defp shift_to_utc(date_time, time_zone_database) do
-    {:ok, date_time} = DateTime.shift_zone(date_time, "UTC", time_zone_database)
+    {:ok, date_time} = DateTime.shift_zone(date_time, "Etc/UTC", time_zone_database)
+
     date_time
   end
 end
