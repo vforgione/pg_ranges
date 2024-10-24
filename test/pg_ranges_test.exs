@@ -146,7 +146,7 @@ defmodule PgRanges.PgRangesTest do
     assert length(models) == 0
   end
 
-  test "can handle open ended ranges" do
+  test "can handle lower and upper open ended ranges" do
     assert {:ok, _model} =
              Model.changeset(%Model{}, %{
                date: DateRange.new(:unbound, :unbound),
@@ -165,6 +165,65 @@ defmodule PgRanges.PgRangesTest do
              int4: %Int4Range{lower: :unbound, upper: :unbound},
              int8: %Int8Range{lower: :unbound, upper: :unbound},
              num: %NumRange{lower: :unbound, upper: :unbound}
+           } = Repo.one(Model)
+  end
+
+  test "can handle lower open ended ranges" do
+    date_range = DateRange.new(~D[2018-04-21], :unbound)
+    ts_range = TsRange.new(~N[2018-04-21 15:00:00.000000], :unbound)
+    tstz_range = TstzRange.new(~U[2018-04-21 20:00:00.000000Z], :unbound)
+
+    int4_range = Int4Range.new(0, :unbound)
+    int8_range = Int8Range.new(0, :unbound)
+    num_range = NumRange.new(0, :unbound)
+
+    assert {:ok, _model} =
+             Model.changeset(%Model{}, %{
+               date: date_range,
+               ts: ts_range,
+               tstz: tstz_range,
+               int4: int4_range,
+               int8: int8_range,
+               num: num_range
+             })
+             |> Repo.insert()
+
+    assert %Model{
+             date: ^date_range,
+             ts: ^ts_range,
+             tstz: ^tstz_range,
+             int4: ^int4_range,
+             int8: ^int8_range,
+             num: ^num_range
+           } = Repo.one(Model)
+  end
+
+  test "can handle upper open ended ranges" do
+    date_range = DateRange.new(:unbound, ~D[2018-04-21], lower_inclusive: false)
+    ts_range = TsRange.new(:unbound, ~N[2018-04-21 15:00:00.000000], lower_inclusive: false)
+    tstz_range = TstzRange.new(:unbound, ~U[2018-04-21 20:00:00.000000Z], lower_inclusive: false)
+    int4_range = Int4Range.new(:unbound, 0, lower_inclusive: false)
+    int8_range = Int8Range.new(:unbound, 0, lower_inclusive: false)
+    num_range = NumRange.new(:unbound, 0, lower_inclusive: false)
+
+    assert {:ok, _model} =
+             Model.changeset(%Model{}, %{
+               date: date_range,
+               ts: ts_range,
+               tstz: tstz_range,
+               int4: int4_range,
+               int8: int8_range,
+               num: num_range
+             })
+             |> Repo.insert()
+
+    assert %Model{
+             date: ^date_range,
+             ts: ^ts_range,
+             tstz: ^tstz_range,
+             int4: ^int4_range,
+             int8: ^int8_range,
+             num: ^num_range
            } = Repo.one(Model)
   end
 
@@ -187,6 +246,28 @@ defmodule PgRanges.PgRangesTest do
              int4: %Int4Range{lower: :empty, upper: :empty},
              int8: %Int8Range{lower: :empty, upper: :empty},
              num: %NumRange{lower: :empty, upper: :empty}
+           } = Repo.one(Model)
+  end
+
+  test "can handle open ended ranges" do
+    assert {:ok, _model} =
+             Model.changeset(%Model{}, %{
+               date: DateRange.new(:unbound, :unbound),
+               ts: TsRange.new(:unbound, :unbound),
+               tstz: TstzRange.new(:unbound, :unbound),
+               int4: Int4Range.new(:unbound, :unbound),
+               int8: Int8Range.new(:unbound, :unbound),
+               num: NumRange.new(:unbound, :unbound)
+             })
+             |> Repo.insert()
+
+    assert %Model{
+             date: %DateRange{lower: :unbound, upper: :unbound},
+             ts: %TsRange{lower: :unbound, upper: :unbound},
+             tstz: %TstzRange{lower: :unbound, upper: :unbound},
+             int4: %Int4Range{lower: :unbound, upper: :unbound},
+             int8: %Int8Range{lower: :unbound, upper: :unbound},
+             num: %NumRange{lower: :unbound, upper: :unbound}
            } = Repo.one(Model)
   end
 end
