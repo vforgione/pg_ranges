@@ -5,9 +5,9 @@ defmodule PgRanges.TsRange do
   use PgRanges
 
   @type t :: %__MODULE__{
-          lower: NaiveDateTime.t(),
+          lower: NaiveDateTime.t() | :unbound | :empty,
           lower_inclusive: boolean(),
-          upper: NaiveDateTime.t(),
+          upper: NaiveDateTime.t() | :unbound | :empty,
           upper_inclusive: boolean()
         }
 
