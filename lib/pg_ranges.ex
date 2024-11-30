@@ -58,20 +58,42 @@ defmodule PgRanges do
       @behaviour PgRanges
       @before_compile PgRanges
 
-      defstruct lower: nil,
-                lower_inclusive: true,
-                upper: nil,
+      defstruct lower: :unbound,
+                lower_inclusive: false,
+                upper: :unbound,
                 upper_inclusive: false
 
       @spec new(any, any, keyword()) :: __MODULE__.t()
       def new(lower, upper, opts \\ []) do
-        fields = Keyword.merge(opts, lower: lower, upper: upper)
+        lower = calculate_value(lower)
+        upper = calculate_value(upper)
+        lower_inclusive = calculate_inclusive(lower, Keyword.get(opts, :lower_inclusive))
+        upper_inclusive = calculate_inclusive(upper, Keyword.get(opts, :upper_inclusive))
+
+        fields = [
+          lower: lower,
+          upper: upper,
+          lower_inclusive: lower_inclusive,
+          upper_inclusive: upper_inclusive
+        ]
+
         struct!(__MODULE__, fields)
       end
 
+      def calculate_inclusive(value, inclusive?)
+      def calculate_inclusive(nil, nil), do: false
+      def calculate_inclusive(:unbound, nil), do: false
+      def calculate_inclusive(:empty, nil), do: false
+      def calculate_inclusive(_, nil), do: true
+      def calculate_inclusive(_, inclusive?), do: inclusive?
+
+      def calculate_value(nil), do: :unbound
+      def calculate_value(value), do: value
+
       @doc false
       @spec from_postgrex(Range.t()) :: __MODULE__.t()
-      def from_postgrex(%Range{} = range), do: struct!(__MODULE__, Map.from_struct(range))
+      def from_postgrex(%Range{} = range),
+        do: struct!(__MODULE__, Map.from_struct(range))
 
       @doc false
       @spec to_postgrex(__MODULE__.t()) :: Range.t()
