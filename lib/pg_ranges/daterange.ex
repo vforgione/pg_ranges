@@ -6,9 +6,9 @@ defmodule PgRanges.DateRange do
 
   @type t :: %__MODULE__{
           lower: Date.t(),
-          lower_inclusive: integer(),
+          lower_inclusive: boolean(),
           upper: Date.t(),
-          upper_inclusive: integer()
+          upper_inclusive: boolean()
         }
 
   @doc false
