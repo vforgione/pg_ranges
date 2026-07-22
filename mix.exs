@@ -41,7 +41,7 @@ defmodule PgRanges.MixProject do
     [
       {:postgrex, ">= 0.0.0"},
       {:ecto_sql, "~> 3.11"},
-      {:decimal, "~> 2.1"},
+      {:decimal, "~> 2.1 or ~> 3.0"},
 
       # dev/test deps
       {:tzdata, "~> 1.1", only: [:dev, :test]},
